@@ -1,3 +1,7 @@
+import com.sun.org.apache.regexp.internal.REUtil;
+
+import javax.print.attribute.standard.Finishings;
+
 /**
  * @author liugx  QQ:1598749808
  * @version V1.0
@@ -6,12 +10,19 @@
  */
 public class SinglyLinkedList {
 
+    /**
+     * 链表头结点
+     */
     private Node head = null;
 
+    /**
+     * 链表大小
+     */
     private int size;
 
     /**
      * 向尾部添加节点，返回当前索引
+     *
      * @param data
      * @return
      */
@@ -31,11 +42,12 @@ public class SinglyLinkedList {
 
     /**
      * 在指定索引插入元素，返回插入的元素索引
+     *
      * @param index
      * @param data
      * @return
      */
-    public int insertNode(int index,int data) {
+    public int insertNode(int index, int data) {
         /**
          * 如果插入的位置在头部或者在头部之外，默认向头部插入
          */
@@ -68,19 +80,74 @@ public class SinglyLinkedList {
         return index;
     }
 
+    /**
+     * 根据所有删除链表节点，成功返回被删除的节点，失败则返回null
+     *
+     * @param index
+     * @return
+     */
+    public Node deleteByIndex(int index) {
+        /**
+         * 判断索引是否越界
+         */
+        if (index >= 0 && index <= size - 1) {
+            /**
+             * 如果删除头结点的话则直接将当前头结点赋值为头结点的后代节点
+             */
+            if (index == 0) {
+                Node t = head;
+                head = t.next;
+                size--;
+                return t;
+            }
+            /**
+             * 如果删除节点为中间某节点的话，则让其前节点的后代指向其后代节点
+             */
+            Node temp = head;
+            int i = 0;
+            while (temp.next != null) {
+                if (++i == index) {
+                    Node t = temp.next;
+                    temp.next = t.next;
+                    return t;
+                }
+                temp = temp.next;
+            }
+        }
+        return null;
+    }
+
+    public Node findMiddleNode() {
+        if (head==null){
+            return head;
+        }
+        Node slowNode = head;
+        Node quickNode = head;
+        /**
+         * quickNode.next == null是链表结点个数为奇数时，快指针已经走到最后了
+         * quickNode.next.next == null是链表结点数为偶数时，快指针已经走到倒数第二个结点了
+         */
+        while (quickNode.next != null && quickNode.next.next != null) {
+            slowNode = slowNode.next;
+            quickNode = quickNode.next.next;
+        }
+        return slowNode;
+    }
+
+    /**
+     * 打印链表所有元素
+     */
     public void printAll() {
         if (head == null) {
             return;
         }
         Node temp = head;
-        while (temp.next!=null) {
-            System.out.print(temp.data+" ");
+        while (temp.next != null) {
+            System.out.print(temp.data + " ");
             temp = temp.next;
         }
-        System.out.print(temp.data+"\n");
+        System.out.print(temp.data + "\n");
     }
-
-
 
 
     public static void main(String[] args) {
@@ -89,7 +156,11 @@ public class SinglyLinkedList {
         linkedList.addNode(2);
         linkedList.addNode(3);
         linkedList.addNode(4);
-        System.out.println(linkedList.insertNode(-177,9));
+        linkedList.addNode(5);
+        linkedList.printAll();
+        //System.out.println(linkedList.insertNode(-177,9));
+        //System.out.println(linkedList.deleteByIndex(4));
+        System.out.println(linkedList.findMiddleNode());
         linkedList.printAll();
     }
 }
