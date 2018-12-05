@@ -1,7 +1,5 @@
 import com.sun.org.apache.regexp.internal.REUtil;
 
-import javax.print.attribute.standard.Finishings;
-
 /**
  * @author liugx  QQ:1598749808
  * @version V1.0
@@ -117,8 +115,13 @@ public class SinglyLinkedList {
         return null;
     }
 
+    /**
+     * 查找链表中间结点，使用快慢指针的方法，当快指针指到空结点时，慢指针指的位置就是中间结点
+     *
+     * @return
+     */
     public Node findMiddleNode() {
-        if (head==null){
+        if (head == null) {
             return head;
         }
         Node slowNode = head;
@@ -149,6 +152,53 @@ public class SinglyLinkedList {
         System.out.print(temp.data + "\n");
     }
 
+    /**
+     * 对链表进行反转
+     * 从头开始向后遍历，改变相邻结点的指向，所以用三个变量
+     */
+    public void reverseNode() {
+        if (head == null || head.next == null) {
+            return;
+        }
+        Node preNode = null;
+        Node currNode = head;
+        Node nextNode = null;
+        while (currNode != null) {
+            nextNode = currNode.next;
+            currNode.next = preNode;
+            preNode = currNode;
+            currNode = nextNode;
+        }
+        head = preNode;
+    }
+
+    /**
+     * 检查有无环
+     * 首先设置两个指针，分别命名为fast和slow，fast指针每次向后移2步，slow指针每次向后移1步。
+     * 如果，fast指针最后走到尾结点，则没有环。
+     * 如果，fast指针和slow指针相遇，则证明有环。
+     * @return
+     */
+    public boolean checkCircle() {
+        if (head == null) {
+            return false;
+        }
+
+        Node slow = head;
+        Node fast = head.next;
+
+        while (fast != null && fast.next!= null) {
+            fast = fast.next.next;
+            slow = slow.next;
+
+            if (slow == fast) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 
     public static void main(String[] args) {
         SinglyLinkedList linkedList = new SinglyLinkedList();
@@ -157,10 +207,15 @@ public class SinglyLinkedList {
         linkedList.addNode(3);
         linkedList.addNode(4);
         linkedList.addNode(5);
-        linkedList.printAll();
+
+        //模拟环
+        /*Node x = linkedList.head.next;
+        linkedList.head.next.next.next.next.next = x;*/
+        //linkedList.printAll();
         //System.out.println(linkedList.insertNode(-177,9));
         //System.out.println(linkedList.deleteByIndex(4));
-        System.out.println(linkedList.findMiddleNode());
-        linkedList.printAll();
+        //System.out.println(linkedList.findMiddleNode());
+        //linkedList.reverseNode();
+        System.out.println(linkedList.checkCircle());
     }
 }
