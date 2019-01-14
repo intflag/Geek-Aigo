@@ -54,15 +54,19 @@ public class SortTest {
         System.out.println("------------------------冒泡排序------------------------");
         int[] arr1 = Arrays.copyOf(arr, arr.length);
         System.out.println(new BubbleSort().getResult(arr1));
+
         System.out.println("------------------------插入排序------------------------");
         int[] arr2 = Arrays.copyOf(arr, arr.length);
         System.out.println(new InsertionSort().getResult(arr2));
+
         System.out.println("------------------------选择排序------------------------");
         int[] arr3 = Arrays.copyOf(arr, arr.length);
         System.out.println(new SelectionSort().getResult(arr3));
+
         System.out.println("------------------------归并排序------------------------");
         int[] arr4 = Arrays.copyOf(arr, arr.length);
         System.out.println(new MergeSort().getResult(arr4));
+        
         System.out.println("------------------------快速排序------------------------");
         int[] arr5 = Arrays.copyOf(arr, arr.length);
         System.out.println(new QuickSort().getResult(arr5));
