@@ -32,13 +32,25 @@ public class SortTest {
         String result = selectionSort.getResult(SmartSortTool.generateData(1000));
         System.out.println(result);
     }
+    @Test
+    public void fun4() {
+        MergeSort mergeSort = new MergeSort();
+        String result = mergeSort.getResult(SmartSortTool.generateData(1000));
+        System.out.println(result);
+    }
+    @Test
+    public void fun5() {
+        QuickSort quickSort = new QuickSort();
+        String result = quickSort.getResult(SmartSortTool.generateData(1000));
+        System.out.println(result);
+    }
 
     /**
      * 三种排序进行对比测试
      */
     @Test
-    public void fun4() {
-        int[] arr = SmartSortTool.generateData(1000);
+    public void fun6() {
+        int[] arr = SmartSortTool.generateData(10000);
         System.out.println("------------------------冒泡排序------------------------");
         int[] arr1 = Arrays.copyOf(arr, arr.length);
         System.out.println(new BubbleSort().getResult(arr1));
@@ -48,5 +60,11 @@ public class SortTest {
         System.out.println("------------------------选择排序------------------------");
         int[] arr3 = Arrays.copyOf(arr, arr.length);
         System.out.println(new SelectionSort().getResult(arr3));
+        System.out.println("------------------------归并排序------------------------");
+        int[] arr4 = Arrays.copyOf(arr, arr.length);
+        System.out.println(new MergeSort().getResult(arr4));
+        System.out.println("------------------------快速排序------------------------");
+        int[] arr5 = Arrays.copyOf(arr, arr.length);
+        System.out.println(new QuickSort().getResult(arr5));
     }
 }
